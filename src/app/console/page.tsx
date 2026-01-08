@@ -1,7 +1,8 @@
+"use client"
+
+import { useAuthStore } from "@/store/user.store"
+
 export default function Page() {
-    return (
-        <>
-        This is a console page
-        </>
-    )
+    const fullName = useAuthStore((state) => state.user?.fullName)
+    return <>{fullName ?? "SOME RANDOM FULL NAME"}</>
 }

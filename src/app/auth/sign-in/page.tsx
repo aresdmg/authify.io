@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { User, userSchema } from "@/utils/types";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -12,22 +11,26 @@ import { useState } from "react";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import axios, { isAxiosError } from "axios"
+import { authSchema, AuthType } from "@/utils/types";
+import { useAuthStore } from "@/store/user.store";
 
 export default function SignUp() {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<User>({
-        resolver: zodResolver(userSchema),
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<AuthType>({
+        resolver: zodResolver(authSchema),
         mode: "onChange"
     })
 
-    const handleRegisterUser = async (userData: User) => {
+    const handleRegisterUser = async (userData: AuthType) => {
         setIsLoading(true)
         try {
             const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/users/login`, { ...userData }, { withCredentials: true })
             if (res.status === 200) {
-                router.push('/console')
+                const user = res.data.data
+                useAuthStore.getState().setUser(user)
+                router.push("/console")
             }
         } catch (error) {
             if (isAxiosError(error)) {
