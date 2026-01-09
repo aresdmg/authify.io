@@ -1,11 +1,9 @@
 import { Icon } from "lucide-react";
 import { Button } from "../ui/button";
-import Image from "next/image";
 import Link from "next/link";
 import { hexagons3 } from '@lucide/lab';
 
 export default function Navbar() {
-
     return (
         <>
             <div className="w-full h-14 border-b sticky flex justify-start items-center bg-background " >
@@ -14,13 +12,13 @@ export default function Navbar() {
                         <Icon iconNode={hexagons3} className="size-6" />
                     </Button>
                 </div>
-                <div className="px-7 w-full">
+                <div className="px-7 w-1/2">
                     <h1 className="text-lg font-medium">Authify</h1>
                 </div>
-                <div className="w-20 h-full flex justify-center items-center border-l">
-                    <Link href={'/profile'} >
-                        <Image src={"https://res.cloudinary.com/desamhhkj/image/upload/v1766655479/Tik_tok_profile_picture_erpml0.jpg"} alt="profile_picture" width={500} height={500} className="size-9 rounded-full" />
-                    </Link>
+                <div className="w-1/2 h-full flex justify-end items-center space-x-7 px-10">
+                    <Link className="text-zinc-500 hover:text-white hover:underline hover:transition-all" href={"/docs"}>Documentations</Link>
+                    <Link className="text-zinc-500 hover:text-white hover:underline hover:transition-all" href={"/sdk"}>SDK</Link>
+                    <Link className="text-white hover:underline hover:transition-all" href={"/profile"}>Profile</Link>
                 </div>
             </div>
         </>

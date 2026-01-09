@@ -28,8 +28,12 @@ export default function SignUp() {
         try {
             const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/users/login`, { ...userData }, { withCredentials: true })
             if (res.status === 200) {
-                const user = res.data.data
-                useAuthStore.getState().setUser(user)
+                const user = {
+                    "fullName": res.data?.data.fullName,
+                    "email": res.data?.data?.email,
+                    "pfp": res.data?.data?.pfp
+                }
+                localStorage.setItem("authify_user_info", JSON.stringify(user))
                 router.push("/console")
             }
         } catch (error) {
