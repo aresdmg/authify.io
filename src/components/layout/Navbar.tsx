@@ -5,15 +5,18 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { hexagons3 } from '@lucide/lab';
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useActionState } from "react";
 import { useAuthStore } from "@/store/user.store";
 import { hydrateUserStore } from "@/utils/hydateUser";
+import { useEffect } from "react";
 
 export default function Navbar() {
-    const user = useAuthStore.getState().user
-    if (!user) {
-        hydrateUserStore()
-    }
+
+    const user = useAuthStore((state) => state.user)
+    useEffect(() => {
+        if (!user) {
+            hydrateUserStore()
+        }
+    }, [user])
 
     return (
         <>

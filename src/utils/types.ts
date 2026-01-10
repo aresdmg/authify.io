@@ -8,6 +8,14 @@ export const authSchema = z.object({
 
 export type AuthType = z.infer<typeof authSchema>
 
+export const orgSchema = z.object({
+    orgName: z.string().min(1, "Organization name is required"),
+    type: z.enum(["personal", "startup", "company", "not-applicable"]).default("personal").optional(),
+    plan: z.enum(["free", "team"]).default("free").optional()
+})
+
+export type OrgType = z.infer<typeof orgSchema>
+
 export type User = {
     email: string
     fullName: string

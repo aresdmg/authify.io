@@ -12,7 +12,6 @@ import { AlertCircle, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import axios, { isAxiosError } from "axios"
 import { authSchema, AuthType } from "@/utils/types";
-import { useAuthStore } from "@/store/user.store";
 
 export default function SignUp() {
     const [isLoading, setIsLoading] = useState(false)
@@ -38,7 +37,7 @@ export default function SignUp() {
             }
         } catch (error) {
             if (isAxiosError(error)) {
-                toast.error(error?.message || "Server error")
+                toast.error(error.response?.data?.message || "Server error")
             }
         } finally {
             setIsLoading(false)

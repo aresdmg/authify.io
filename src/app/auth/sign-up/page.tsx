@@ -36,7 +36,7 @@ export default function SignUp() {
             }
         } catch (error) {
             if (isAxiosError(error)) {
-                toast.error(error?.message || "Server error")
+                toast.error(error.response?.data?.message || "Server error")
             }
         } finally {
             setIsLoading(false)
