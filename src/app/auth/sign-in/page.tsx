@@ -34,7 +34,7 @@ export default function SignUp() {
                     "pfp": res.data?.data?.pfp
                 }
                 localStorage.setItem("authify_user_info", JSON.stringify(user))
-                router.push("/console")
+                router.push("/dashboard")
             }
         } catch (error) {
             if (isAxiosError(error)) {

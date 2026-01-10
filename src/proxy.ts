@@ -11,7 +11,7 @@ export async function proxy(request: NextRequest) {
     }
 
     if (isPublicPath && accessToken) {
-        return NextResponse.redirect(new URL('/console', request.url))
+        return NextResponse.redirect(new URL('/dashboard', request.url))
     }
 }
 
@@ -19,6 +19,7 @@ export const config = {
     matcher: [
         '/',
         '/auth/:path',
-        '/console'
+        '/console',
+        '/dashboard'
     ]
 }

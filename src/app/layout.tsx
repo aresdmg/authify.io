@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}>
         <div className="w-full h-screen bg-zinc-900/50 fixed top-0 -z-20" />
         <Toaster richColors position="top-right" />
