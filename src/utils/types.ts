@@ -21,3 +21,13 @@ export type User = {
     fullName: string
     pfp: string
 }
+
+export type Organization = {
+    id: string,
+    orgName: string,
+    ownerId: string,
+    plan: ["free", "team"],
+    type: ["personal", "startup", "company", "not-applicable"]
+    createdAt: string,
+    updatedAt: string
+}
