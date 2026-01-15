@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Book, ChevronRight } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence } from "motion/react"
 import AppModel from "@/components/layout/AppModel";

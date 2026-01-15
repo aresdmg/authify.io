@@ -2,14 +2,12 @@
 
 import { motion } from "motion/react"
 import { Button } from "../ui/button"
-import { Loader2, X } from "lucide-react"
+import { AlertCircle, Loader2, X } from "lucide-react"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
-import { Controller, useForm } from "react-hook-form"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { useState } from "react"
-import { appSchema, AppType, Organization } from "@/utils/types"
-import { zodResolver } from "@hookform/resolvers/zod"
+import axios, { isAxiosError } from "axios"
+import { toast } from "sonner"
 
 interface AppModelInterface {
     onClose: () => void
@@ -17,14 +15,25 @@ interface AppModelInterface {
 
 export default function AppModel({ onClose }: AppModelInterface) {
     const [isLoading, setIsLoading] = useState(false)
-    const [orgs, setOrgs] = useState<Organization[]>([])
-    const { register, handleSubmit, control, formState: { errors } } = useForm<AppType>({
-        resolver: zodResolver(appSchema),
-        mode: "onChange"
-    })
+    const [appName, setAppName] = useState('')
+    const [touched, setTouched] = useState(false)
 
-    const handlePostOrgData = (data: any) => {
-        console.log(data);
+    const handlePostApplicationData = async () => {
+        setIsLoading(true)
+        try {
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/application/`, { appName }, { withCredentials: true })
+            if (res.status === 200) {
+                toast.success(res.data?.message ?? "Application registered")
+            }
+        } catch (error) {
+            if (isAxiosError(error)) {
+                const errMsg = error?.response?.data?.message ?? "Server error"
+                toast.error(errMsg)
+            }
+        } finally {
+            setAppName("")
+            onClose()
+        }
     }
 
     return (
@@ -46,15 +55,31 @@ export default function AppModel({ onClose }: AppModelInterface) {
                             </Button>
                         </div>
                         <div>
-                            <form onSubmit={handleSubmit(handlePostOrgData)} className="w-full min-h-full flex justify-center items-center flex-col space-y-3" >
+                            <form className="w-full min-h-full flex justify-center items-center flex-col space-y-3" >
                                 <div className="w-full flex flex-col space-y-2.5 pb-2.5">
                                     <Label>
                                         Application name
                                     </Label>
-                                    <Input type="text" placeholder="Enter application name" />
+                                    <Input type="text" placeholder="Enter application name" value={appName} onChange={(e) => {
+                                        setTouched(true)
+                                        setAppName(e.target.value)
+                                    }} />
+                                    {touched && appName.length === 0 && (
+                                        <div className="flex text-red-400 justify-start items-center space-x-1.5">
+                                            <AlertCircle className="size-4" />
+                                            <p className="text-sm" >Application name is required</p>
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="w-full flex justify-end items-center space-x-3.5" >
-                                    <Button type="submit" className="w-40 cursor-pointer" >
+                                    <Button onClick={(e) => {
+                                        e.preventDefault();
+                                        handlePostApplicationData();
+                                    }}
+                                        type="submit"
+                                        className="w-40 cursor-pointer"
+                                        disabled={appName.length < 1}
+                                    >
                                         {
                                             isLoading ?
                                                 (<>

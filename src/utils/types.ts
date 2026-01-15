@@ -16,14 +16,6 @@ export const orgSchema = z.object({
 
 export type OrgType = z.infer<typeof orgSchema>
 
-export const appSchema = z.object({
-    orgId: z.string(),
-    appName: z.string().min(1, "Application name cannot be empty"),
-    branch: z.string().array() 
-})
-
-export type AppType = z.infer<typeof appSchema>
-
 export type User = {
     email: string
     fullName: string
