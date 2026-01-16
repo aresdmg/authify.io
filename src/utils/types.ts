@@ -16,6 +16,13 @@ export const orgSchema = z.object({
 
 export type OrgType = z.infer<typeof orgSchema>
 
+export const appSchema = z.object({
+    appName: z.string().min(1, "Application name is required"),
+    serverType: z.enum(["micro", "standard", "massive"]).default("micro").optional(),
+})
+
+export type AppSchemaType = z.infer<typeof appSchema>
+
 export type User = {
     email: string
     fullName: string
@@ -30,4 +37,11 @@ export type Organization = {
     type: ["personal", "startup", "company", "not-applicable"]
     createdAt: string,
     updatedAt: string
+}
+
+export type Application = {
+    id: string,
+    appName: string,
+    branch: string[],
+    serverType: string
 }
