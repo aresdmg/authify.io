@@ -10,7 +10,6 @@ import axios, { isAxiosError } from "axios";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Application } from "@/utils/types";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
 export default function Home() {
@@ -29,7 +28,6 @@ export default function Home() {
             ])
             setApplications(res.data?.data)
         } catch (error) {
-            console.log(error);
             if (isAxiosError(error)) {
                 const errMsg = error.response?.data?.message || "Server error"
                 toast.error(errMsg)
