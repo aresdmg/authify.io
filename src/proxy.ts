@@ -34,6 +34,6 @@ export const config = {
         '/auth/:path*',
         '/console',
         '/dashboard',
-        '/dashboard/:path*'
+        '/dashboard/:path*',
     ]
 }

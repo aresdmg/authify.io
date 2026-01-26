@@ -124,3 +124,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+::-webkit-scrollbar, ::-webkit-slider-thumb {
+  width: 0px;
+}

@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Application } from "@/utils/types";
 import axios, { isAxiosError } from "axios";
-import { ChevronRight, Plus, Slash } from "lucide-react";
+import { ChevronRight, Plus } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -38,7 +38,8 @@ export default function ApplicationConsole() {
 
     return (
         <>
-            <div className="w-full h-20 flex justify-between items-center px-20">
+            <div className="w-full h-14 flex justify-between items-center px-5">
+                <SidebarTrigger className="mr-5 cursor-pointer border"/>
                 {
                     isLoading ?
                         <Skeleton className="min-w-2xl h-5 rounded-xl" />
@@ -58,17 +59,6 @@ export default function ApplicationConsole() {
                             </div>
                         )
                 }
-                <div className="w-1/2 h-full flex justify-end items-center space-x-3.5" >
-                    <Link href={'#'} >
-                        Aunthentication
-                    </Link>
-                    <Link href={'#'} >
-                        Database
-                    </Link>
-                    <Link href={'#'} >
-                        File storage
-                    </Link>
-                </div>
             </div>
         </>
     );

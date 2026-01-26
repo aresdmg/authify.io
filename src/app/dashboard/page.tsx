@@ -112,7 +112,7 @@ export default function Home() {
                 {applications.length > 0 && (
                     <div className="w-full grid grid-cols-3 gap-4 px-80">
                         {applications.map((app) => (
-                            <Link href={`/dashboard/${app.id}`} key={app.id} className="h-52 border rounded-xl bg-zinc-900/50 flex justify-start items-start px-7 py-5 hover:border-zinc-700 hover:transition-all hover:bg-zinc-900">
+                            <Link href={`/${app.id}`} key={app.id} className="h-52 border rounded-xl bg-zinc-900/50 flex justify-start items-start px-7 py-5 hover:border-zinc-700 hover:transition-all hover:bg-zinc-900">
                                 <div className="w-full h-auto flex justify-between" >
                                     <div className="flex justify-center items-center space-x-4" >
                                         <h1 className="font-medium text-xl" >{app.appName}</h1>
